@@ -1,0 +1,268 @@
+###############################################
+# BASE URL
+###############################################
+@baseUrl = http://localhost:3000
+
+###############################################
+# 1. REGISTER (criar usuário)
+###############################################
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "DouglasM",
+  "email": "admin@email.com",
+  "password": "12345678"
+}
+
+###
+
+###############################################
+# 2. LOGIN ADMIN
+###############################################
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@email.com",
+  "password": "12345678"
+}
+
+###
+###############################################
+# 2.2 LOGIN USER COMUM
+###############################################
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "douglasM@email.com",
+  "password": "87654321"
+}
+
+###############################################
+# ⚠️ COPIE O TOKEN DAQUI E COLE ABAIXO
+###############################################
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWRtaW5AZW1haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzc4NDg4MTY0LCJleHAiOjE3Nzg1NzQ1NjR9.V7EENYkheIsP3l49g_aFtGceehdhtycRuKoMfnUTYTw
+
+###
+
+###############################################
+# 3. PROFILE (usuário logado) (public)
+###############################################
+GET {{baseUrl}}/users/profile
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 4. LISTAR USUÁRIOS (ADMIN)
+###############################################
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 5. BUSCAR USUÁRIO POR ID (ADMIN)
+###############################################
+GET {{baseUrl}}/users/6
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 6. DELETAR USUÁRIO (ADMIN)
+###############################################
+DELETE {{baseUrl}}/users/delete/4
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 7. ROTA TESTE ADMIN (ADMIN)
+###############################################
+GET {{baseUrl}}/users/admin
+Authorization: Bearer {{token}}
+
+
+###############################################
+# 8. CRIAR PRODUTO (ADMIN)
+###############################################
+POST {{baseUrl}}/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Produto 2",
+  "price": 20,
+  "discount": 20,
+  "stock": 30
+}
+
+###
+
+###############################################
+# 9. LISTAR PRODUTOS (PUBLIC)
+###############################################
+GET {{baseUrl}}/products
+
+###
+
+###############################################
+# 10. BUSCAR PRODUTO POR ID (PUBLIC)
+###############################################
+GET {{baseUrl}}/products/9
+
+###
+
+###############################################
+# 11. DELETAR PRODUTO (ADMIN)
+###############################################
+DELETE {{baseUrl}}/products/7
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 12. UPDATE PRODUCT (ADMIN)
+###############################################
+PATCH {{baseUrl}}/products/8
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "stock": 200
+}
+
+###
+
+###############################################
+# 13. CRIAR CATEGORIA (ADMIN)
+###############################################
+POST {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Congelados"
+}
+
+###
+
+###############################################
+# 14. LISTAR CATEGORIAS (PUBLIC)
+###############################################
+GET {{baseUrl}}/categories
+
+###
+
+###############################################
+# 15. ATUALIZAR CATEGORIA (ADMIN)
+###############################################
+PATCH {{baseUrl}}/categories/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Congelados"
+}
+
+###
+
+###############################################
+# 16. DELETAR CATEGORIA (ADMIN)
+###############################################
+DELETE {{baseUrl}}/categories/3
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# 17. BUSCAR POR NOME (PRODUTO) (PUBLIC)
+###############################################
+GET {{baseUrl}}/products?name=Produto 2
+
+###
+
+###############################################
+# 18. FILTRAR POR CATEGORIA (PRODUTO) (PUBLIC)
+###############################################
+GET {{baseUrl}}/products?categoryId=1
+
+###
+
+###############################################
+# 19. COMBINAR FILTROS (PRODUTO) (PUBLIC)
+###############################################
+GET {{baseUrl}}/products?Produto&categoryId=3
+
+###
+
+###############################################
+# 20. ADICIONAR ITEM AO CARRINHO (USER) (PUBLIC)
+###############################################
+POST {{baseUrl}}/cart/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productId": 8,
+  "quantity": 20
+}
+
+###
+
+###############################################
+# LISTAR ITENS DO CARRINHO (USER) (PUBLIC)
+###############################################
+GET {{baseUrl}}/cart
+Authorization: Bearer {{token}}
+
+###                      
+
+###############################################
+# ATUALIZAR QUANTIDADE DO ITEM NO CARRINHO (USER) (PUBLIC)
+###############################################
+PATCH {{baseUrl}}/cart/items/11
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "quantity": 3
+}
+
+###
+
+###############################################
+# REMOVER ITEM DO CARRINHO (USER) (PUBLIC)
+###############################################
+DELETE {{baseUrl}}/cart/items/7
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# VENDA (CHECKOUT) (USER) (PUBLIC)
+###############################################
+POST {{baseUrl}}/cart/checkout
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# MEU HISTÓRICO DE PEDIDOS (USER) (PUBLIC)
+###############################################
+GET {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+###
+
+###############################################
+# PEDIDO INDIVIDUAL (USER) (PUBLIC)
+###############################################
+GET {{baseUrl}}/orders/4
+Authorization: Bearer {{token}}
+
+###
