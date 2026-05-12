@@ -449,6 +449,5 @@ Este projeto foi desenvolvido para demonstrar conhecimentos em:
 # 👨‍💻 Autor
 
 Douglas Monteiro  
-Desenvolvedor Front-end Júnior / Full Stack Júnior
-
+Desenvolvedor Front-end / Full Stack
 Projeto desenvolvido para fins de estudo e portfólio.
