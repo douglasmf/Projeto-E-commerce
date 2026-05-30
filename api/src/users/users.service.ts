@@ -69,17 +69,39 @@ export class UsersService {
 
   // Deletar usuário por ID (apenas para admin)
   async remove(id: number) {
-    return this.prisma.user.delete({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true
-      }
+
+  const orders =
+    await this.prisma.order.findMany({
+      where: { userId: id },
+      select: { id: true },
     });
-  }
+
+  const orderIds =
+    orders.map((order) => order.id);
+
+  await this.prisma.orderItem.deleteMany({
+    where: {
+      orderId: {
+        in: orderIds,
+      },
+    },
+  });
+
+  await this.prisma.order.deleteMany({
+    where: { userId: id },
+  });
+
+  return this.prisma.user.delete({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+    },
+  });
+}
 
 
 }

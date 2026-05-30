@@ -1,0 +1,164 @@
+'use client';
+
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import { useParams } from 'next/navigation';
+
+import { Container } from '@/components/layout/Container';
+
+import { ProductCard } from '@/components/product/ProductCard';
+
+import { getProducts } from '@/services/products-service';
+
+import { getCategories } from '@/services/categories-service';
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  discount?: number;
+  stock: number;
+  categoryId: number;
+  category?: Category;
+}
+
+export default function CategoryPage() {
+  const params = useParams();
+
+  const id = params.id as string;
+
+  const [products, setProducts] =
+    useState<Product[]>([]);
+
+  const [categories, setCategories] =
+    useState<Category[]>([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
+
+        const [
+          productsData,
+          categoriesData,
+        ] = await Promise.all([
+          getProducts(),
+          getCategories(),
+        ]);
+
+        setProducts(productsData);
+
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error(
+          'Erro ao carregar dados:',
+          error,
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  const categoryId = Number(id);
+
+  const category = categories.find(
+    (category) =>
+      category.id === categoryId,
+  );
+
+  const categoryProducts = products.filter(
+    (product) =>
+      product.categoryId === categoryId,
+  );
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#F4F4F5] pt-20">
+        <Container>
+          <div className="pb-10 lg:ml-64">
+            <p className="text-zinc-600">
+              Carregando...
+            </p>
+          </div>
+        </Container>
+      </main>
+    );
+  }
+
+  return (
+    <>
+      <main className="min-h-screen bg-[#F4F4F5] pt-20">
+        <Container>
+          <div
+            className="
+              pb-10
+
+              lg:ml-64
+            "
+          >
+            {/* topo */}
+            <div
+              className="
+                mb-8
+
+                border-b
+                border-zinc-300
+
+                pb-4
+              "
+            >
+              <h1
+                className="
+                  text-2xl
+                  font-bold
+                  text-zinc-800
+
+                  sm:text-3xl
+                "
+              >
+                {category?.name}
+              </h1>
+            </div>
+
+            {/* grid */}
+            <div
+              className="
+                grid
+                grid-cols-1
+                gap-4
+
+                sm:grid-cols-2
+                lg:grid-cols-3
+                xl:grid-cols-4
+                2xl:grid-cols-5
+              "
+            >
+              {categoryProducts.map(
+                (product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </Container>
+      </main>
+    </>
+  );
+}

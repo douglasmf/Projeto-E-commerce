@@ -28,7 +28,8 @@ export class ProductsService {
     where: {
       name: filters?.name
         ? {
-            contains: filters.name
+            contains: filters.name,
+            mode: 'insensitive',
           }
         : undefined,
 

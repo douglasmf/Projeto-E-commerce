@@ -1,9 +1,38 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Injectable()
 export class OrdersService {
   constructor(private prisma: PrismaService) {}
+
+  async create(
+    data: CreateOrderDto,
+  ) {
+    return this.prisma.order.create({
+      data: {
+        userId: data.userId,
+        total: data.total,
+        
+        items: {
+          create: data.items.map(
+            (item) => ({
+              productId:
+                item.productId,
+              quantity:
+                item.quantity,
+
+              price: item.price,
+            }),
+          ),
+        },
+      },
+
+      include: {
+        items: true,
+      },
+    });
+  }
 
   async findUserOrders(userId: number) {
     return this.prisma.order.findMany({

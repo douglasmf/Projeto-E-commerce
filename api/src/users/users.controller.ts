@@ -1,9 +1,11 @@
 import {
   Controller,
+  Post,
   Get,
   Delete,
   UseGuards,
   Req,
+  Body,
   Param,
 } from '@nestjs/common';
 
@@ -16,12 +18,18 @@ import { Roles } from '../auth/roles.decorator';
 
 import { AuthRequest } from '../auth/types/auth-request';
 import { ApiBearerAuth, ApiOperation, ApiTags} from  '@nestjs/swagger';
-
-
+import { CreateUserDto } from './dto/create-user.dto';
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
+
+    @Post()
+    create(
+      @Body() data: CreateUserDto,
+    ) {
+      return this.usersService.create(data);
+    }
 
     // QUALQUER USUÁRIO LOGADO
     @ApiOperation({ summary: 'Obter perfil do usuário' })
@@ -59,9 +67,12 @@ export class UsersController {
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles('admin')
     @Delete('delete/:id')
-    deleteUser(@Param('id') id: string) {
-        this.usersService.remove(Number(id));
-        return { message: 'Usuário removido com sucesso' };
+    async deleteUser(
+        @Param('id') id: string
+    )   {
+        return await this.usersService.remove( 
+          Number(id)
+        );
     }
 
     // ADMIN - buscar usuário por id - por último
