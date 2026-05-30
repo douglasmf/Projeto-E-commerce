@@ -1,6 +1,6 @@
 import type { Product } from '@/types/product';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const BASE_URL = 'https://projeto-e-commerce-9gmz.onrender.com';
 
 interface CreateProductData {
   name: string;
@@ -43,6 +43,9 @@ export async function getProducts(filters?: GetProductsFilters): Promise<Product
     params.set('categoryId', String(filters.categoryId));
 
   const url = `${BASE_URL}/products${params.toString() ? `?${params.toString()}` : ''}`;
+
+  console.log('BASE_URL:', BASE_URL);
+  console.log('URL FINAL:', url);
 
   const res = await fetch(url);
 
