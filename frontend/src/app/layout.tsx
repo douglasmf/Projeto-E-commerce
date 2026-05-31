@@ -1,4 +1,4 @@
-// @ts-ignore: allow importing global CSS without type declarations
+// @ts-espect-error: allow importing global CSS without type declarations
 import './globals.css';
 import { Roboto } from 'next/font/google';
 

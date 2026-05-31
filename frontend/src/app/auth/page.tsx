@@ -70,7 +70,7 @@ export default function AuthPage() {
     data: LoginFormData,
   ) {
     try {
-    setLoginErrorMessage('');
+      setLoginErrorMessage('');
 
       const response = await api.post(
         '/auth/login',
@@ -111,7 +111,7 @@ export default function AuthPage() {
       );
 
       router.push('/');
-      } catch (error) {
+    } catch (error) {
       console.log(error);
 
       setLoginErrorMessage(
@@ -183,7 +183,7 @@ export default function AuthPage() {
     } catch (error) {
       console.log(error);
 
-      const err = error as any;
+      const err = error as Error;
       const status = err?.response?.status;
       const backendMessage = err?.response?.data?.message || '';
 
@@ -257,7 +257,7 @@ export default function AuthPage() {
 
         <button
           type="submit"
-              className="rounded-md bg-blue-600 p-3 font-semibold text-white transition hover:bg-blue-700 cursor-pointer"
+          className="rounded-md bg-blue-600 p-3 font-semibold text-white transition hover:bg-blue-700 cursor-pointer"
         >
           Entrar
         </button>
@@ -284,7 +284,7 @@ export default function AuthPage() {
       {registerModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold">
                   Criar conta

@@ -65,8 +65,8 @@ export default async function SearchPage({
           <div className="flex-shrink-0">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-zinc-900">
-                Resultados de busca para "
-                {query}"
+                Resultados de busca para {' " '}
+                {query}{' " '}
               </h1>
 
               <div className="mt-3 h-1 w-40 rounded-full bg-zinc-800" />
