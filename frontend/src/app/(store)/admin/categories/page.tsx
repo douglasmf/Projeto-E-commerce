@@ -19,8 +19,8 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
-  Category,
 } from '@/services/categories-service';
+import type { Category } from '@/types/category';
 
 export default function AdminCategoriesPage() {
   const [categories, setCategories] =
