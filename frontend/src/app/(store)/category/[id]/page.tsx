@@ -15,20 +15,9 @@ import { getProducts } from '@/services/products-service';
 
 import { getCategories } from '@/services/categories-service';
 
-interface Category {
-  id: number;
-  name: string;
-}
+import type { Product } from '@/types/product';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  discount?: number;
-  stock: number;
-  categoryId: number;
-  category?: Category;
-}
+import type { Category } from '@/types/category';
 
 export default function CategoryPage() {
   const params = useParams();

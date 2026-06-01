@@ -1,10 +1,5 @@
 import { api } from './api';
-
-export interface Category {
-  id: number;
-
-  name: string;
-}
+import type { Category } from '@/types/category';
 
 interface CreateCategoryData {
   name: string;

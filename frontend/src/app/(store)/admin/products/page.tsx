@@ -6,6 +6,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { Container } from '@/components/layout/Container';
+import type { Product } from '@/types/product';
+import type { Category } from '@/types/category';
 
 import {
   getProducts,
@@ -16,21 +18,7 @@ import {
 
 import { api } from '@/services/api';
 
-interface Category {
-  id: number;
-  name: string;
-}
 
-interface Product {
-  image?: string;
-  id: number;
-  name: string;
-  price: number;
-  discount?: number;
-  stock: number;
-  categoryId?: number;
-  category?: Category;
-}
 
 interface FormData {
   name: string;
