@@ -7,7 +7,24 @@ import { getCategories } from '@/services/categories-service';
 import Link from 'next/link';
 
 export default async function Home() {
-  const products = await getProducts();
+   try {
+    const products = await getProducts();
+
+    return (
+      <div>
+        Produtos carregados: {products.length}
+      </div>
+    );
+  } catch (error) {
+    console.log(error);
+
+    return (
+      <div>
+        Erro ao carregar produtos
+      </div>
+    );
+  }
+
 
   const categories = await getCategories();
 
