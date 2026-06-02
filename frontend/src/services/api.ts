@@ -1,7 +1,7 @@
 import axios, { AxiosHeaders } from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://projeto-e-commerce-9gmz.onrender.com' || 'http://localhost:3000',
+  baseURL: 'https://projeto-e-commerce-9gmz.onrender.com',
 });
 
 let interceptorAdded = false;
