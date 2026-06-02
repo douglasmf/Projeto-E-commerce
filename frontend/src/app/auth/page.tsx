@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import { api } from '@/services/api';
 
 import { useAuthStore } from '@/store/auth-store';
+import { AxiosError } from 'axios';
 
 interface LoginFormData {
   email: string;
@@ -183,9 +184,9 @@ export default function AuthPage() {
     } catch (error) {
       console.log(error);
 
-      const err = error as Error;
-      const status = err?.response?.status;
-      const backendMessage = err?.response?.data?.message || '';
+      const err = error as AxiosError<{ message?: string }>;
+      const status = err.response?.status;
+      const backendMessage = err.response?.data?.message ?? '';
 
       if (status === 409 || backendMessage.toLowerCase().includes('email')) {
         setRegisterErrorMessage('Email já existe.');
