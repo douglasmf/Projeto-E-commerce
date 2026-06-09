@@ -90,24 +90,28 @@ export default function CategoryPage() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#F4F4F5] pt-20">
+      <main className="h-screen bg-[#F4F4F5] pt-20 overflow-hidden">
         <Container>
           <div
             className="
-              pb-10
-
+              h-[calc(100vh-5rem)]
               lg:ml-64
+              flex
+              flex-col
             "
           >
             {/* topo */}
             <div
               className="
+                sticky
+                top-0
+                z-10
+                bg-[#F4F4F5]
                 mb-8
-
                 border-b
                 border-zinc-300
-
                 pb-4
+                shrink-0
               "
             >
               <h1
@@ -115,7 +119,6 @@ export default function CategoryPage() {
                   text-2xl
                   font-bold
                   text-zinc-800
-
                   sm:text-3xl
                 "
               >
@@ -123,27 +126,32 @@ export default function CategoryPage() {
               </h1>
             </div>
 
-            {/* grid */}
+            {/* conteúdo com scroll */}
             <div
               className="
-                grid
-                grid-cols-1
-                gap-4
-
-                sm:grid-cols-2
-                lg:grid-cols-3
-                xl:grid-cols-4
-                2xl:grid-cols-5
-              "
+              flex-1
+              overflow-y-auto
+              pb-10
+            "
             >
-              {categoryProducts.map(
-                (product) => (
+              <div
+                className="
+                  grid
+                  grid-cols-1
+                  gap-4
+                  sm:grid-cols-2
+                  lg:grid-cols-3
+                  xl:grid-cols-4
+                  2xl:grid-cols-5
+                "
+              >
+                {categoryProducts.map((product) => (
                   <ProductCard
                     key={product.id}
                     product={product}
                   />
-                ),
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </Container>
