@@ -455,12 +455,12 @@ export default function AdminProductsPage() {
                         key={product.id}
                         className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                       >
-                        <div className="mb-4 flex h-40 items-center justify-center overflow-hidden rounded-xl bg-zinc-100">
+                        <div className="mb-4 flex h-40 items-center justify-center overflow-hidden rounded-xl">
                           {product.image ? (
                             <img
                               src={product.image}
                               alt={product.name}
-                              className="h-full w-full object-cover"
+                              className="h-full w-full object-contain"
                             />
                           ) : (
                             <span className="text-sm text-zinc-400">

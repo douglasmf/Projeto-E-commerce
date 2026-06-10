@@ -65,7 +65,6 @@ export function ProductCard({
           justify-center
           overflow-hidden
           rounded-xl
-          bg-zinc-100
         "
       >
         {product.image ? (
