@@ -38,7 +38,7 @@ export default async function Home() {
                 const categoryProducts = products.filter(
                   (product) =>
                     product.categoryId === category.id,
-                );
+                ).slice(0, 5);
 
                 return (
                   <section
