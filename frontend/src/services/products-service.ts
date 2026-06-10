@@ -57,7 +57,9 @@ export async function getProducts(filters?: GetProductsFilters): Promise<Product
 }
 
 export async function getProductById(id: number): Promise<Product> {
-  const res = await fetch(`${BASE_URL}/products/${id}`);
+  const res = await fetch(`${BASE_URL}/products/${id}`,{
+    cache:'no-store'  
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch product');
