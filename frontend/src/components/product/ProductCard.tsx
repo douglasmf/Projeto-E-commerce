@@ -75,7 +75,7 @@ export function ProductCard({
             className="
               h-full
               w-full
-              object-cover
+              object-contain
             "
           />
         ) : (
