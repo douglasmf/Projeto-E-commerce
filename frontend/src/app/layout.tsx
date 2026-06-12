@@ -9,6 +9,9 @@ const roboto = Roboto({ subsets: ['latin'] });
 export const metadata = {
   title: 'PrimeCart',
   description: 'frontend do projeto',
+  icons: {
+    icon: '/favicon.png'
+  }
 };
 
 export default function RootLayout({
